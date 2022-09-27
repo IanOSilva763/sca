@@ -25,7 +25,22 @@ SECRET_KEY = '0qt6@hzfbv1yl^r$64adyc03bdtwrk6m@m%2%vase*7*#abj$3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+if DEBUG:
+    # SQLite local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+else:
+    # Postgre Heroku
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+
+
+ALLOWED_HOSTS = ['sca-mapa.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
